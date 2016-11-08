@@ -2,16 +2,11 @@ package com.doing.more.java;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-
-public class HibernateConfig
-
-{
-
+public class HibernateConfig {
     private SessionFactory sessionFactory;
 
     public HibernateConfig() {
@@ -23,19 +18,20 @@ public class HibernateConfig
 
         //change the next line of code to match your MySQL URL and port
 
-        config.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:7071/test");
+        config.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/test");
 
         //change the next two lines of code to match your MySQL user name and password.
 
-        config.setProperty("hibernate.connection.username", "bob");
+        config.setProperty("hibernate.connection.username", "root");
 
-        config.setProperty("hibernate.connection.password", "somepass");
+        config.setProperty("hibernate.connection.password", "password");
 
         //change the pool size to reflect how many users you expect your application to have initially
 
-        config.setProperty("hibernate.connection.pool_size", "1");
+        config.setProperty("hibernate.connection.pool_size", "10");
 
         config.setProperty("hibernate.connection.autocommit", "true");
+        config.setProperty("hibernate.id.new_generator_mappings", "false");
 
         config.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.NoCacheProvider");
 
@@ -63,16 +59,13 @@ public class HibernateConfig
  * There have been several changes to the Hibernate libraries.
  * Please uncomment the source code for the version of Hibernate you are using.
 */
-         /*Hibernate 4.3 - 5.x */ //ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
-        /*Hibernate 3.x - 4.2*/ ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(config.getProperties()).buildServiceRegistry();
+         /*Hibernate 4.3 - 5.x */ ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
+        /*Hibernate 3.x - 4.2*/ //ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(config.getProperties()).buildServiceRegistry();
 
         sessionFactory = config.buildSessionFactory(serviceRegistry);
     }
 
     public  Session getCurrentSession() {
-
         return sessionFactory.getCurrentSession();
-
     }
-
 }

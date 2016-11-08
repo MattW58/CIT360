@@ -24,7 +24,6 @@ public class HibernateRunner {
         aSillyHibernateUseExample.modifyUser();
         aSillyHibernateUseExample.addSharedPhoneNumber();
         aSillyHibernateUseExample.deleteAddedUsers();
-
     }
 
     /*
